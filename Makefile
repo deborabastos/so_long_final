@@ -6,7 +6,7 @@
 #    By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2021/11/11 15:49:09 by dalves-p         ###   ########.fr        #
+#    Updated: 2021/11/08 19:43:13 by dalves-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS		=	srcs/so_long.c \
 
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
+# SANIT		=	-g3 -fsanitize=address
 MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz
 RM			=	rm -f
 OBJS		=	$(SRCS:%.c=%.o)
@@ -38,23 +39,24 @@ endif
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@ make -C libft	
-			@ make clean -C libft
-			@ $(CC) $(SRCS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
+#			make -C libft	
+#			make clean -C libft
+			$(CC) $(SRCS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
+# 			clang so_long.c -L ./mlx -lmlx -framework OpenGL -framework AppKit -lz -o so_long
 
 %o:			%.c
-			@ $(CC) $(CFLAGS) -Imlx -c $< -o $@
+			$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 run:		all
 			./$(NAME) maps/map_bonus.ber
 
 clean:
-			@ $(RM) $(OBJS)
+			$(RM) $(OBJS)
 
 fclean:		clean
-			@ $(RM) $(NAME)
-			@ $(RM) *.out
-			@ make fclean -C libft/
+			$(RM) $(NAME)
+			$(RM) *.out
+#			make fclean -C libft/
 
 re:			fclean all
 
