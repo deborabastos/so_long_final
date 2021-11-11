@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 22:45:38 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/04 17:41:48 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/11 20:16:37 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_ret(t_var var)
 	row = 0;
 	while (row < var.map.size.y)
 	{
-		if (var.map.size.x != (int)strlen(var.map.mtx[row]))
+		if (var.map.size.x != (int)ft_strlen(var.map.mtx[row]))
 			error("Invalid map: not a retangle");
 		row++;
 	}
