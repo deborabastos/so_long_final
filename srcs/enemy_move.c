@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_move.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:37:31 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/09 15:28:18 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/11 21:44:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,22 @@ int	step_into_enemy(int key, t_var *var)
 	if ((key == A_KEY)
 		&& (var->map.mtx[var->img.pos.y][var->img.pos.x - 1] == 'Y'))
 	{
-		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
+		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n"); //  ok
 	}
 	if ((key == D_KEY)
 		&& (var->map.mtx[var->img.pos.y][var->img.pos.x + 1] == 'Y'))
 	{
-		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
+		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n"); //ok
 	}
 	if ((key == S_KEY)
 		&& (var->map.mtx[var->img.pos.y + 1][var->img.pos.x] == 'Y'))
 	{
-		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
+		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n"); //ok
 	}
 	if ((key == W_KEY)
 		&& (var->map.mtx[var->img.pos.y - 1][var->img.pos.x] == 'Y'))
-	{
-		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
+
+		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n"); //ok
 	}
 	return (0);
 }

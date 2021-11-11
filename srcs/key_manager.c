@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:23:46 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/09 15:32:47 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/11 21:42:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	key_press(int key, t_var *var)
 	}
 	else
 	{
-		movements(key, var);
 		if (var->has_enemy > 0)
 			step_into_enemy(key, var);
+		movements(key, var);
 	}
 	if (init_steps != var->game.count_steps)
 		printf("Steps: %d\n", var->game.count_steps);
