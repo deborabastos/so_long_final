@@ -1,81 +1,84 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_move.c                                       :+:      :+:    :+:   */
+/*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:37:31 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/11 18:23:07 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/11 22:00:07 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	check_enemy(t_var *var)
+int	enemy_move_right(t_var *var)
 {
-	int		row;
-	int		col;
-
-	row = 0;
-	while (row < var->map.size.y)
-	{
-		col = 0;
-		while (var->map.mtx[row][col])
-		{
-			if (var->map.mtx[row][col] == 'Y')
-				var->has_enemy++;
-			col++;
-		}
-		row++;
-	}
+	if (var->map.mtx[var->enemy.pos.y][var->enemy.pos.x + 1] == 'P')
+		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = '0';
+	var->enemy.pos.x += 1;
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = 'Y';
+	var->game.count_enemy++;
 	return (0);
 }
 
-int	get_enemy_position(t_var *var)
+int	enemy_move_down(t_var *var)
 {
-	int		row;
-	int		col;
-
-	row = 0;
-	while (row < var->map.size.y)
-	{
-		col = 0;
-		while (col <= var->map.size.x)
-		{
-			if (var->map.mtx[row][col] == 'Y')
-			{
-				var->enemy.pos.x = col;
-				var->enemy.pos.y = row;
-			}
-			col++;
-		}
-		row++;
-	}
+	if (var->map.mtx[var->enemy.pos.y + 1][var->enemy.pos.x] == 'P')
+		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = '0';
+	var->enemy.pos.y += 1;
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = 'Y';
+	var->game.count_enemy++;
 	return (0);
 }
 
-int	step_into_enemy(int key, t_var *var)
+int	enemy_move_left(t_var *var)
 {
-	if ((key == A_KEY)
-		&& (var->map.mtx[var->img.pos.y][var->img.pos.x - 1] == 'Y'))
-	{
+	if (var->map.mtx[var->enemy.pos.y][var->enemy.pos.x - 1] == 'P')
 		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
-	}
-	if ((key == D_KEY)
-		&& (var->map.mtx[var->img.pos.y][var->img.pos.x + 1] == 'Y'))
-	{
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = '0';
+	var->enemy.pos.x -= 1;
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = 'Y';
+	var->game.count_enemy++;
+	return (0);
+}
+
+int	enemy_move_up(t_var *var)
+{
+	if (var->map.mtx[var->enemy.pos.y - 1][var->enemy.pos.x] == 'P')
 		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
-	}
-	if ((key == S_KEY)
-		&& (var->map.mtx[var->img.pos.y + 1][var->img.pos.x] == 'Y'))
-	{
-		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
-	}
-	if ((key == W_KEY)
-		&& (var->map.mtx[var->img.pos.y - 1][var->img.pos.x] == 'Y'))
-	{
-		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
-	}
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = '0';
+	var->enemy.pos.y -= 1;
+	var->map.mtx[var->enemy.pos.y][var->enemy.pos.x] = 'Y';
+	var->game.count_enemy++;
+	return (0);
+}
+
+int	enemy_patrol(t_var *var)
+{
+	usleep(200000);
+	get_enemy_position(var);
+	if ((var->map.mtx[var->enemy.pos.y][var->enemy.pos.x + 1] == '0'
+		|| var->map.mtx[var->enemy.pos.y][var->enemy.pos.x + 1] == 'P')
+		&& var->game.count_enemy < var->map.size.x)
+		enemy_move_right(var);
+	else if ((var->map.mtx[var->enemy.pos.y + 1][var->enemy.pos.x] == '0'
+		|| var->map.mtx[var->enemy.pos.y + 1][var->enemy.pos.x] == 'P')
+		&& var->game.count_enemy < (var->map.size.x + var->map.size.y))
+		enemy_move_down(var);
+	else if ((var->map.mtx[var->enemy.pos.y][var->enemy.pos.x - 1] == '0'
+		|| var->map.mtx[var->enemy.pos.y][var->enemy.pos.x - 1] == 'P')
+		&& var->game.count_enemy < ((2 * var->map.size.x) + var->map.size.y))
+		enemy_move_left(var);
+	else if ((var->map.mtx[var->enemy.pos.y - 1][var->enemy.pos.x] == '0'
+		|| var->map.mtx[var->enemy.pos.y - 1][var->enemy.pos.x] == 'P')
+		&& var->game.count_enemy < (2 * (var->map.size.x + var->map.size.y)))
+		enemy_move_up(var);
+	else
+		var->game.count_enemy = 0;
+	print_map(*var);
+	print_steps(var);
 	return (0);
 }
