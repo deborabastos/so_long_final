@@ -6,7 +6,7 @@
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:37:31 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/11 22:18:51 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:23:07 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	step_into_enemy(int key, t_var *var)
 	}
 	if ((key == W_KEY)
 		&& (var->map.mtx[var->img.pos.y - 1][var->img.pos.x] == 'Y'))
-
+	{
 		free_exit(var, "\e[31m\e[1mGAME OVER\n!!!! You LOST !!!!\e[0m\n");
 	}
 	return (0);
