@@ -6,7 +6,7 @@
 #    By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2021/11/12 18:44:01 by dalves-p         ###   ########.fr        #
+#    Updated: 2021/11/12 18:47:40 by dalves-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,14 +50,14 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			make -C libft	
-			$(CC) $(SRCS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
+			$(CC) $(OBJS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
 
 %o:			%.c
 			$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 bonus: 		$(OBJS_BONUS)
 			make -C libft	
-			$(CC) $(SRCS_BONUS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
+			$(CC) $(OBJS_BONUS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
 
 clean:
 			$(RM) $(OBJS) $(OBJS_BONUS)
