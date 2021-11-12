@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maps.c                                             :+:      :+:    :+:   */
+/*   maps_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:58:53 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/12 18:33:04 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:46:45 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 int	get_x_y(t_var *var, char **argv)
 {
@@ -65,8 +65,10 @@ int	load_map(t_var var, int row, int col)
 		var.img.img_ptr = mlx_xpm_file_to_image(var.mlx, "./img/collec.xpm",
 				&var.img.size.x, &var.img.size.y);
 	else if (var.map.mtx[row][col] == 'P')
-		var.img.img_ptr = mlx_xpm_file_to_image(var.mlx, "./img/sprite1.xpm",
+		var.img.img_ptr = mlx_xpm_file_to_image(var.mlx, var.img.spt_path,
 				&var.img.size.x, &var.img.size.y);
+	else if (var.map.mtx[row][col] == 'Y' && var.has_enemy > 0)
+		enemy_animation(&var);
 	mlx_put_image_to_window(var.mlx, var.win, var.img.img_ptr, SPRITE_W * col,
 		SPRITE_H * row);
 	mlx_destroy_image(var.mlx, var.img.img_ptr);

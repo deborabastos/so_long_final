@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_map.c                                     :+:      :+:    :+:   */
+/*   validate_map_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 22:45:38 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/12 18:35:09 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:46:57 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 int	check_walls(t_var var)
 {
@@ -92,7 +92,7 @@ int	check_char(t_var var)
 		{
 			if (var.map.mtx[row][col] != '0' && var.map.mtx[row][col] != '1'
 				&& var.map.mtx[row][col] != 'P' && var.map.mtx[row][col] != 'E'
-				&& var.map.mtx[row][col] != 'C')
+				&& var.map.mtx[row][col] != 'C' && var.map.mtx[row][col] != 'Y')
 				error("Invalid map: unknown char");
 			col++;
 		}

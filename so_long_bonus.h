@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:06:36 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/12 18:34:06 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/12 18:09:24 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -64,6 +64,7 @@ typedef struct s_vector
 typedef struct s_img
 {
 	void		*img_ptr;
+	char		*spt_path;
 	t_vector	size;
 	t_vector	pos;
 	int			*addr;
@@ -82,6 +83,7 @@ typedef struct s_game
 {
 	int			count_collec;
 	int			count_steps;
+	int			count_enemy;
 }	t_game;
 
 typedef struct s_var
@@ -91,12 +93,15 @@ typedef struct s_var
 	t_game		game;
 	t_map		map;
 	t_img		img;
+	t_img		enemy;
+	int			has_enemy;
 }	t_var;
 
 int	get_x_y(t_var *var, char **argv);
 int	init(t_var *var);
 int	get_map(t_var *var, char **argv);
 int	check_args(int argc, char **argv);
+int	check_enemy(t_var *var);
 int	print_map(t_var var);
 int	key_press(int key, t_var *vars);
 int	mlx_close(t_var *var);
@@ -110,5 +115,10 @@ int	check_collect(t_var *var);
 int	movements(int key, t_var *var);
 int	free_map(t_var *var);
 int	free_exit(t_var *var, char *msg);
+int	print_steps(t_var *var);
+int	step_into_enemy(int key, t_var *var);
+int	get_enemy_position(t_var *var);
+int	enemy_patrol(t_var *var);
+int	enemy_animation(t_var *var);
 
 #endif

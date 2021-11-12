@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:24:18 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/12 18:30:50 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:46:37 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 int	get_init_position(t_var *var)
 {
@@ -64,5 +64,16 @@ int	check_collect(t_var *var)
 	}
 	else
 		printf("\e[35m\e[1mPlease, collect all diamonds!!!\e[0m\n");
+	return (0);
+}
+
+int	print_steps(t_var *var)
+{
+	char	*str;
+
+	str = ft_itoa(var->game.count_steps);
+	mlx_string_put(var->mlx, var->win, (var->img.pos.x * SPRITE_W) + 5,
+		(var->img.pos.y * SPRITE_H) + 10, 0x833000, str);
+	free(str);
 	return (0);
 }

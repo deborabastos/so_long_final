@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movements.c                                        :+:      :+:    :+:   */
+/*   movements_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:37:31 by dalves-p          #+#    #+#             */
-/*   Updated: 2021/11/12 18:33:29 by dalves-p         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:46:49 by dalves-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 int	move_left(t_var *var)
 {
@@ -18,6 +18,7 @@ int	move_left(t_var *var)
 	var->img.pos.x -= 1;
 	var->map.mtx[var->img.pos.y][var->img.pos.x] = 'P';
 	var->game.count_steps++;
+	var->img.spt_path = "./img/sprite2.xpm";
 	return (0);
 }
 
@@ -27,6 +28,7 @@ int	move_right(t_var *var)
 	var->img.pos.x += 1;
 	var->map.mtx[var->img.pos.y][var->img.pos.x] = 'P';
 	var->game.count_steps++;
+	var->img.spt_path = "./img/sprite1.xpm";
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: dalves-p <dalves-p@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2021/11/11 22:00:26 by dalves-p         ###   ########.fr        #
+#    Updated: 2021/11/12 18:44:01 by dalves-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,26 @@ SRCS		=	srcs/so_long.c \
 				srcs/movements.c \
 				srcs/game.c \
 				srcs/free_map.c \
-				srcs/enemy.c \
-				srcs/enemy_move.c \
-				srcs/animation.c \
+
+SRCS_BONUS	=	bonus/so_long_bonus.c \
+				bonus/key_manager_bonus.c \
+				bonus/maps_bonus.c \
+				bonus/validate_map_bonus.c \
+				bonus/error_bonus.c \
+				bonus/movements_bonus.c \
+				bonus/game_bonus.c \
+				bonus/free_map_bonus.c \
+				bonus/animation_bonus.c \
+				bonus/enemy_bonus.c \
+				bonus/enemy_move_bonus.c \
 
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
 MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz
 RM			=	rm -f
 OBJS		=	$(SRCS:%.c=%.o)
+OBJS_BONUS	=	$(SRCS_BONUS:%.c=%.o)
+
 
 ifeq ($(shell uname), Linux)
 MLXFLAGS	=	-L ./mlx_linux/ -lmlx -Ilmlx -lXext -lX11
@@ -38,23 +49,23 @@ endif
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@ make -C libft	
-			@ make clean -C libft
-			@ $(CC) $(SRCS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
+			make -C libft	
+			$(CC) $(SRCS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
 
 %o:			%.c
-			@ $(CC) $(CFLAGS) -Imlx -c $< -o $@
+			$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
-run:		all
-			./$(NAME) maps/map_bonus.ber
+bonus: 		$(OBJS_BONUS)
+			make -C libft	
+			$(CC) $(SRCS_BONUS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
 
 clean:
-			@ $(RM) $(OBJS)
+			$(RM) $(OBJS) $(OBJS_BONUS)
 
 fclean:		clean
-			@ $(RM) $(NAME)
-			@ $(RM) *.out
-			@ make fclean -C libft/
+			$(RM) $(NAME)
+			$(RM) *.out
+			make fclean -C libft/
 
 re:			fclean all
 
